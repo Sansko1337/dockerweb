@@ -1,14 +1,11 @@
-import React from 'react';
-import './App.css';
+import React, {FunctionComponent} from 'react';
+import {LoginView} from "./view/login/LoginView";
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        App
-      </header>
-    </div>
-  );
-}
+const App: FunctionComponent = () => {
+
+    return (
+            <LoginView/>
+    );
+};
 
 export default App;
