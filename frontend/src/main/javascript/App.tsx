@@ -1,10 +1,13 @@
 import React, {FunctionComponent} from 'react';
-import {LoginView} from "./view/login/LoginView";
+import {UIRouter, UIView} from "@uirouter/react";
+import {router} from "./router/Router";
 
 const App: FunctionComponent = () => {
 
     return (
-            <LoginView/>
+        <UIRouter router={router}>
+            <UIView/>
+        </UIRouter>
     );
 };
 

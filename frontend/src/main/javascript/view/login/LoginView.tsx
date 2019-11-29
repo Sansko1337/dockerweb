@@ -13,6 +13,7 @@ const useStyles = makeStyles({
         backgroundSize: 'cover',
         display: 'flex',
         width: '100%',
+        height: '100%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center'
@@ -38,6 +39,10 @@ export const LoginView: FunctionComponent = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
+    const handleLogin = () => {
+        console.debug(`Attempted login with username '${username}' and Password '${password}'`)
+    };
+
     return (
         <section className={classes.loginContainer}>
             <Paper className={classes.loginForm}>
@@ -54,7 +59,7 @@ export const LoginView: FunctionComponent = () => {
                            margin={"normal"}
                            label={'password'} variant={'outlined'}
                            onChange={event => setPassword(event.target.value)} type={'password'}/>
-                <Button className={classes.inputButton} variant={"contained"} color={"primary"}>Login</Button>
+                <Button className={classes.inputButton} variant={"contained"} color={"primary"} onClick={() => handleLogin()}>Login</Button>
             </Paper>
         </section>
     );
