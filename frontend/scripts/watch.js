@@ -88,7 +88,7 @@ function watch() {
             console.error(messages.warnings.join('\n\n'))
         }
 
-        console.log(`Compilation done in ${(stats.endTime - stats.startTime) / 1000}s`)
+        console.log(`Compilation done in ${(stats.endTime - stats.startTime) / 1000}s`);
         console.log()
     });
 }

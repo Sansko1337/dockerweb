@@ -69,7 +69,7 @@ const resolveModule = (resolveFn, filePath) => {
 module.exports = {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('target/build'),
+  appBuild: resolveApp('target/classes/static'),
   appPublic: resolveApp('src/main/resources'),
   appHtml: resolveApp('src/main/resources/index.html'),
   appIndexJs: resolveModule(resolveApp, 'src/main/javascript/index'),
@@ -84,7 +84,5 @@ module.exports = {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
 };
-
-
 
 module.exports.moduleFileExtensions = moduleFileExtensions;
