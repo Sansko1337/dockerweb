@@ -1,7 +1,7 @@
-import React, {FunctionComponent, useEffect, useState} from "react";
+import React, {FunctionComponent, useCallback, useEffect, useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import ContainerService from "../../service/container/ContainerService";
-import {Box, Card, CardContent, FormControlLabel, Grid, IconButton, Paper, Switch} from "@material-ui/core";
+import {Box, Card, CardContent, FormControlLabel, IconButton, Paper, Switch} from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {Refresh} from "@material-ui/icons";
@@ -18,6 +18,11 @@ const useStyles = makeStyles({
     },
     noMarginFormLabel: {
         marginRight: 0
+    },
+    containerGrid: {
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(20em, 1fr))',
+        gridGap: '1em'
     }
 });
 export const ContainersView: FunctionComponent = () => {
@@ -27,15 +32,15 @@ export const ContainersView: FunctionComponent = () => {
     const [containers, setContainers] = useState<any[]>([]);
     const [includeInactive, setIncludeInactive] = useState(false);
 
-    const refreshContainers = () => {
+    const refreshContainers = useCallback(() => {
         ContainerService.getContainers(includeInactive).then(data => {
             setContainers(data.data)
         });
-    };
+    }, [includeInactive]);
 
     useEffect(() => {
         refreshContainers();
-    }, [includeInactive]);
+    }, [refreshContainers, includeInactive]);
 
     return (
         <>
@@ -50,7 +55,7 @@ export const ContainersView: FunctionComponent = () => {
                     control={<Switch onChange={() => setIncludeInactive(!includeInactive)}/>}
                 />
             </Paper>
-            <Grid container>
+            <div className={classes.containerGrid}>
                 {containers.map(container => (
                     <Card raised className={classes.containerCard}>
                         <CardContent>
@@ -63,7 +68,7 @@ export const ContainersView: FunctionComponent = () => {
                         </CardContent>
                     </Card>
                 ))}
-            </Grid>
+            </div>
         </>
     );
 };
