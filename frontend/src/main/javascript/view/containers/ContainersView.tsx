@@ -1,12 +1,18 @@
 import React, {FunctionComponent, useCallback, useEffect, useState} from "react";
 import Typography from "@material-ui/core/Typography";
 import ContainerService from "../../service/container/ContainerService";
-import {Box, Card, CardContent, FormControlLabel, IconButton, Paper, Switch} from "@material-ui/core";
+import {Box, ButtonBase, Card, CardContent, FormControlLabel, IconButton, Paper, Switch} from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 import {Refresh} from "@material-ui/icons";
+import {UISref} from "@uirouter/react";
+import {Container} from "../../model/Container";
 
 const useStyles = makeStyles({
+    containerButton: {
+      width: '100%',
+      textAlign: 'initial'
+    },
     controlContainer: {
         display: 'flex',
         justifyContent: 'flex-end'
@@ -29,7 +35,7 @@ export const ContainersView: FunctionComponent = () => {
 
     const classes = useStyles();
 
-    const [containers, setContainers] = useState<any[]>([]);
+    const [containers, setContainers] = useState<Container[]>([]);
     const [includeInactive, setIncludeInactive] = useState(false);
 
     const refreshContainers = useCallback(() => {
@@ -58,14 +64,18 @@ export const ContainersView: FunctionComponent = () => {
             <div className={classes.containerGrid}>
                 {containers.map(container => (
                     <Card raised className={classes.containerCard}>
-                        <CardContent>
-                            <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
-                                <Typography noWrap variant={"h6"}>{container.Names[0]}</Typography>
-                                <Chip label={container.State}/>
-                            </Box>
-                            <Typography noWrap variant={"body1"}>{container.Image}</Typography>
-                            <Typography variant={"body1"}>{container.Status}</Typography>
-                        </CardContent>
+                        <UISref to={"ContainerDetails"} params={{id: container.Id}}>
+                            <ButtonBase className={classes.containerButton}>
+                                <CardContent className={classes.containerButton}>
+                                    <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'}>
+                                        <Typography noWrap variant={"h6"}>{container.Names[0]}</Typography>
+                                        <Chip label={container.State}/>
+                                    </Box>
+                                    <Typography noWrap variant={"body1"}>{container.Image}</Typography>
+                                    <Typography variant={"body1"}>{container.Status}</Typography>
+                                </CardContent>
+                            </ButtonBase>
+                        </UISref>
                     </Card>
                 ))}
             </div>
